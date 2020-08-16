@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="col-md-4">
+  <ul class="list-group">
+      {% for cat in cats %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{{ cat.category }}">{{ cat.category }}</a>
+            <span class="badge badge-primary badge-pill">{{ cat.auc }}</span>
+          </li>
+      {% endfor %}
+    </ul>
+</div>
+{% endblock %}
