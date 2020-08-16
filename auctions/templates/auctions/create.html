@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if not user.is_authenticated %}
+    <div class="alert alert-danger" role="alert">
+        You can't access this page
+    </div>
+{% else %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="titleid"><b>Title</b></label>
+            <input name="title" type="text" class="form-control" id="titleid" placeholder="Title" required>
+        </div>
+        <div class="form-group">
+            <label for="descid"><b>Description</b></label>
+            <input name="description" type="text" class="form-control" id="descid" placeholder="Description" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="categoryid"><b>Category</b></label>
+                <input name="category" type="text" class="form-control" id="categoryid" placeholder="Category" required>
+            </div>        
+            <div class="form-group col-md-2">
+                <label for="startid"><b>Start Bid</b></label>
+                <input name="start" type="number" class="form-control" id="startid" placeholder="Start Bid" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="deadid"><b>Ending Date</b></label>
+                <input name="deadline" type="date" class="form-control" id="deadid" placeholder="Ending date" required>
+            </div>
+        </div>  
+        <div class="form-group">
+            <label for="imageid"><b>Image</b></label>
+            <input name="imageaddr" type="url" class="form-control" id="imageid" placeholder="Image Address">
+        </div>
+        <input class="btn btn-outline-secondary" type="submit" value="Submit">
+    </form>
+{% endif %}
+{% endblock %}
