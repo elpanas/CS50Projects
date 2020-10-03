@@ -1,0 +1,19 @@
+.allpost {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.base {
+    font-size: small;
+    cursor: pointer;
+}
+
+.editlink {
+    color: #007bff;
+}
+
+.like {
+    color: gray;
+}

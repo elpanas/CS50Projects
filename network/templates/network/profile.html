@@ -1,0 +1,40 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+      <div class="col-2">
+        <h2><strong>{{ user_info.username }}</strong></h2>
+      </div>        
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <h5>Followers: <span id="followers">{{ followers }}</span></h5>
+      </div> 
+      <div class="col-sm">
+        <h5>Following: <span id="following">{{ following }}</span></h5>
+      </div> 
+      {% if user != user_info %}
+        <div class="col-sm">
+          <button id="foll{{ user_info.pk }}" type="button" class="btn btn-dark" onclick="change_follow('{{ user_info.pk }}')">{{ follow }}</button>
+        </div> 
+      {% endif %}     
+    </div>
+</div>
+
+  {% for post in posts %}
+  <div class="allpost">      
+      <small id="post_body{{ post.id }}">{{ post.body }}</small><br>
+      <small style="color: gray;">{{ post.date }}</small><br>
+      <small style="color: gray;">{{ post.likes }}</small><br>
+  </div>
+  {% empty %}
+  <div style="padding: 10px;"><h5>No Posts Yet</h5></div>
+  {% endfor %}
+{% endblock %}
+
+{% block script %}
+    <!-- <script src="{% static 'network/edit.js' %}"></script> -->
+    <script src="{% static 'network/follow.js' %}"></script>
+{% endblock %}
