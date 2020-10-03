@@ -1,0 +1,64 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div style="padding: 10px;"><h2>{{ title }}</h2></div>
+{% if user.is_authenticated and not foll %}
+<div class="allpost">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group" id="newpost">
+            <label for="textpost"><h5>New Post</h5></label>
+            <input type="text" class="form-control" id="textpost" name="textpost">
+        </div>
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+</div>
+{% endif %}
+{% for post in posts %}
+<div class="allpost">
+    <p><strong><a href="profile/{{ post.user.pk }}">{{ post.user }}</a></strong></p>
+    <div id="post{{ post.pk }}">
+        {% if user.is_authenticated and user == post.user %}
+            <span id="{{ post.pk }}" class="base editlink" onclick="show_edit_post(this)">Edit</span><br>
+        {% endif %}
+        <small id="post_body{{ post.pk }}">{{ post.body }}</small><br>
+    </div>
+    <div id="edit{{ post.pk }}" style="display: none;">
+        <div class="form-group">
+            <input type="text" class="form-control" id="textedit{{ post.pk }}">
+        </div>
+        <button type="button" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-secondary">Cancel</button>
+    </div>
+    <small style="color: gray;">{{ post.date }}</small><br>
+    {% if post in posts_liked %}
+        <span id="heart{{ post.pk }}" onclick="rem_like('{{ post.pk }}')" class="base">&#129505</span>
+    {% else %}        
+        <span id="heart{{ post.pk }}" onclick="add_like('{{ post.pk }}')" class="base">&#129505</span>        
+    {% endif %}
+    <small id="like{{ post.pk }}" class="like">{{ post.likes }}</small><br>
+</div>
+{% empty %}
+<div style="padding: 10px;"><h5>No Posts Yet</h5></div>
+{% endfor %}
+{% if posts.paginator.num_pages > 1 %}
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+    {% if posts.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}</a></li>
+    {% endif %}
+      <li class="page-item"><a class="page-link" href="#">{{ posts.number }}</a></li>
+    {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+    {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/edit.js' %}"></script>
+{% endblock %}
