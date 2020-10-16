@@ -1,0 +1,109 @@
+{% extends "beachu/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h3 class="text-center">{{ estab.name }}</h3>
+<br>
+<h4 class="text-center">Available</h4>
+<div class="container" style="width: 40%;">
+  <div class="row text-center">
+    {% if user.is_authenticated and estab.manager == user %}
+    <div class="col-sm" id="decumb" style="cursor: pointer;" onclick="decreaseUmb('{{ estab.pk }}');">
+      <svg width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-caret-down-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z"/>
+      </svg>
+    </div>
+    {% endif %}
+    <div class="col-sm">
+      <h1 class="text-success" id="availumb">{{ estab.available }}</h1>
+    </div>
+    {% if user.is_authenticated and estab.manager == user %}
+    <div class="col-sm" id="incumb" style="cursor: pointer;" onclick="increaseUmb('{{ estab.pk }}');">
+      <svg   width="3em" height="3em" viewBox="0 0 16 16" class="bi bi-caret-up-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 9a.5.5 0 0 1-.374-.832l4-4.5a.5.5 0 0 1 .748 0l4 4.5A.5.5 0 0 1 12 11H4z"></path>
+      </svg>
+    </div>    
+    {% endif %}
+  </div>
+</div>
+<br>
+{% if user.is_authenticated and user != estab.manager %}
+<div class="card-group mx-auto" style="width: 60%;">
+  <div class="card rounded-left" style="padding-top: 5%;">
+    <img src="{% static 'beachu/images/geo-alt.svg' %}" class="card-img-top img-fluid" style="max-height: 56px;" alt="Address">
+    <div class="card-body">
+      <p><h5 class="card-title text-center">Come and found us!</h5></p>
+        <div style="padding-left: 10%;"> {{ estab.street }}, {{ estab.number }}<br>
+        {{ estab.zipcode }}, {{ estab.city }}<br>
+        {{ estab.country }}</div>       
+    </div>
+  </div>
+  <input type="hidden" id="estabid" value="{{ estab.pk }}"/>
+  <div id="book" class="card" style="padding-top: 5%; cursor: pointer;">
+  <img src="{{ bookimg }}" id="bookimg" class="card-img-top img-fluid" style="max-height: 56px;" alt="Phone">
+    <div class="card-body text-center">      
+      <p><h5 id="booktext" class="card-title">{{ booktext }}</h5></p>
+      <input id="nrumb" type="number" style="display: {{ nrumb }};" name="nrumb" placeholder="How many?" min="0" max="{{ estab.available }}"/>
+      <br>
+      <span id="bookumb" style="display: {{ booked_dis }};">{{ booked_cont }}</span>
+    </div>      
+  </div>    
+  <div class="card rounded-right" id="fav" style="padding-top: 5%; cursor: pointer;">    
+    <img src="{{ favimg }}" id="favimg" class="card-img-top img-fluid" style="max-height: 56px;" alt="Fav">
+    <div class="card-body text-center arrow">
+      <p><h5 id="favtext" class="card-title">{{ favtext }}</h5></p>        
+    </div>
+  </div>
+</div>
+
+<div class="allpost mx-auto">    
+  <div class="form-group" id="newpost">
+    <label for="textpost"><h5>New Comment</h5></label>
+    <input type="text" class="form-control" id="textpost" name="textpost">
+  </div>
+  <button id="postbtn" type="button" class="btn btn-dark" onclick="addcomment('{{ estab.pk }}', '{{ user.username }}');">Post</button>
+</div>
+{% endif %}
+<div class="allpost mx-auto" id="lastpost" style="display: none;">  
+</div>
+{% for post in posts %}
+<div class="allpost mx-auto">
+    <p><strong>{{ post.user }}</strong></p>
+    <div id="post{{ post.pk }}">
+        {% if user.is_authenticated and user == post.user %}
+            <div id="{{ post.pk }}" class="base editlink" onclick="show_edit_post(this)">Edit</div>
+        {% endif %}
+        <small id="post_body{{ post.pk }}">{{ post.body }}</small>
+    </div><br>
+    <div id="edit{{ post.pk }}" style="display: none;">
+        <div class="form-group">
+            <input type="text" class="form-control" id="textedit{{ post.pk }}">
+        </div>
+        <button type="button" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-secondary">Cancel</button>
+    </div>
+    <small style="color: gray;">{{ post.date }}</small><br>    
+</div>
+{% endfor %}
+{% if posts.paginator.num_pages > 1 %}
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+    {% if posts.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">{{ posts.previous_page_number }}</a></li>
+    {% endif %}
+      <li class="page-item"><a class="page-link" href="#">{{ posts.number }}</a></li>
+    {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">{{ posts.next_page_number }}</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+    {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}
+{% block script %}
+<script src="{% static 'beachu/js/book.js' %}"></script> 
+<script src="{% static 'beachu/js/comment.js' %}"></script> 
+<script src="{% static 'beachu/js/fav.js' %}"></script>
+<script src="{% static 'beachu/js/updateumb.js' %}"></script>
+{% endblock %}
