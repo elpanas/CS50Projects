@@ -53,8 +53,8 @@ It allows you to check umbrellas availability in bathing establishments using th
 
 ## Why is my project distinct from the others?
 
-Because the aid of this project is pretty different from the previous ones and Pizza Project too.
+Because the aid of this project is different from the previous ones and Pizza Project too.
 
 ## Why is my project more complex than the others?
 
-I used React.js to write more readable code, Django F() expressions to compare models' fields and I mixed all technologies, learnt during the course, together.
+I used React.js to write more readable code, Django F() expressions to compare model fields and I mixed all technologies, learnt during the course, together.
