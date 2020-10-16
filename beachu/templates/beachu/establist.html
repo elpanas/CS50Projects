@@ -1,0 +1,28 @@
+{% extends "beachu/layout.html" %}
+
+{% block body %}
+{% for estab in estabs %}
+<div class="card w-75 mx-auto">
+    <div class="card-body">
+      <h5 class="card-title">{{ estab.name }}</h5>
+      <p class="card-text">{{ estab.street }}, {{ estab.number }}, {{estab.zipcode }}, {{ estab.city }}</p>      
+      <div class="progress">
+        <div class="progress-bar bg-success" id="" role="progressbar"
+             style="width: {% widthratio estab.available estab.umbrellas 100 %}%;"
+             aria-valuenow="{% widthratio estab.available estab.umbrellas 100 %}" 
+             aria-valuemin="0" aria-valuemax="100">
+             {% widthratio estab.available estab.umbrellas 100 %} %
+        </div>
+      </div>
+      <br>
+      <a href="{% url 'estabpage' estab.pk %}" class="btn btn-dark" >Enter</a>
+    </div>
+</div>
+{% empty %}
+<div class="text-center" style="font-weight: bold;"><p>No Establishments</p></div>
+{% endfor %}
+{% if user.is_authenticated and user.is_manager and is_list %}
+<br>
+<div class="text-center"><a href="{% url 'insert' %}" class="btn btn-dark">Add New</a></div>
+{% endif %}
+{% endblock %}

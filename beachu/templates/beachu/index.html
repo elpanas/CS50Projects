@@ -1,0 +1,18 @@
+{% extends "beachu/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if message %}
+<div>{{ message }}</div>
+{% endif %}
+
+<div id="app"></div>
+{% endblock %}
+{% block script %}
+<!--<script src="{% static 'beachu/js/showpage.js' %}"></script>-->
+<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel" src="{% static 'beachu/js/index.jsx' %}"></script>
+{% endblock %}
