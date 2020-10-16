@@ -48,8 +48,8 @@ It allows you to check umbrellas availability in bathing establishments using th
 ## Frameworks and Languages
 
 - **CSS:** Bootstrap 4.5.2
-- **Python:** Django
-- **JavaScript:** React.js (even though it's not a real fw)
+- **Python:** Django 3.1
+- **JavaScript:** React.js 16.14 (even though it's not a real fw)
 
 ## Why is my project distinct from the others?
 
