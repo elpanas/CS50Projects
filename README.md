@@ -17,7 +17,7 @@ It allows you to check umbrellas availability in bathing establishments using th
 
 - **establist.html:** several lists of establishments (once at a time) with quick infos about availability throught a progress bar.
 - **estabpage.html:** establishment page, where you can check availability
-- **index.html** hybrid onepage/traditional architecture. It contains Search Page, Login and Register Page. 
+- **index.html:** hybrid onepage/traditional architecture. It contains Search Page, Login and Register Page. 
 - **insertnew.html:** form to create new establishments
 - **layout.html:** navbar and header of every page
 
@@ -35,15 +35,15 @@ It allows you to check umbrellas availability in bathing establishments using th
 
 ## Images
 
-- **.svg images** icons and images provided by Bootstrap official website
+- **.svg images:** icons and images provided by Bootstrap official website
 
 ## Models
 
 - **User:** It is the user model provided by Django. I added a field to check if an user is manager or not
 - **Estabs:** Infos about the establishments
-- **Booking** It stores bookings
-- **Comment** It stores comments
-- **Favourite** It stores favourite estabs
+- **Booking:** It stores bookings
+- **Comment:** It stores comments
+- **Favourite:** It stores favourite estabs
 
 ## Frameworks and Languages
 
