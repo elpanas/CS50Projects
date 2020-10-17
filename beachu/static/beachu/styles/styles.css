@@ -1,0 +1,20 @@
+.arrow {
+    cursor: pointer;
+}
+
+.allpost {
+    border: 1px solid #343a40;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px;
+    width: 60%;
+}
+
+.base {
+    font-size: small;
+    cursor: pointer;
+}
+
+.editlink {
+    color: #007bff;
+}
