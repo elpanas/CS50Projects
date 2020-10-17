@@ -53,7 +53,7 @@ It allows you to check umbrellas availability in bathing establishments using th
 
 ## Why is my project distinct from the others?
 
-Because the aid of this project is different from the previous ones and Pizza Project too.
+Because the purpose of this project is different from the previous ones and Pizza Project too.
 
 ## Why is my project more complex than the others?
 
